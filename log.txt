@@ -1,24 +1,5 @@
-=== MEJOR DE LOS CASOS ===
-
---- Elementos: 1,000 ---
-Bubble Sort    0.02 Segundos
-Selection Sort 0.02 Segundos
-Insertion Sort 0.00 Segundos
-Merge Sort     0.00 Segundos
-
 === CASO PROMEDIO ===
 
---- Elementos: 1,000 ---
-Bubble Sort    0.04 Segundos
-Selection Sort 0.02 Segundos
-Insertion Sort 0.02 Segundos
-Merge Sort     0.00 Segundos
-
-=== PEOR DE LOS CASOS ===
-
---- Elementos: 1,000 ---
-Bubble Sort    0.05 Segundos
-Selection Sort 0.02 Segundos
-Insertion Sort 0.03 Segundos
-Merge Sort     0.00 Segundos
+--- Elementos: 1,000,000 ---
+Merge Sort     8.01 Segundos
 

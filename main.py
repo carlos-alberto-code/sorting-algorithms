@@ -6,12 +6,12 @@ from sorting_algorithms.algorithms import bubble_sort, selection_sort, insertion
 with open("log.txt", "w") as log_file:
     log_file.write("")
 
-cases = ["best", "average", "worst"]
-elements = [1_000]
+cases = ["average"]
+elements = [1_000_000]
 algorithms = {
-    "Bubble Sort": bubble_sort,
-    "Selection Sort": selection_sort,
-    "Insertion Sort": insertion_sort,
+    # "Bubble Sort": bubble_sort,
+    # "Selection Sort": selection_sort,
+    # "Insertion Sort": insertion_sort,
     "Merge Sort": merge_sort
 }
 
