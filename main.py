@@ -21,20 +21,22 @@ class TimedThread(Thread):
         self.execution_time = 0
 
     def run(self):
+        print(f"Inicio del hilo: {self.algorithm_name}")
         start = time.time()
         self.target(*self.args)
         self.execution_time = time.time() - start
+        print(f"Fin del hilo: {self.algorithm_name} - Tiempo de ejecución: {self.execution_time:.2f} segundos")
 
 # Limpiar archivo de log
 with open("log.txt", "w") as log_file:
     log_file.write("")
 
 cases = ["average"]
-elements = [1_000_000]
+elements = [10_000]
 algorithms = {
-    #"Bubble Sort": bubble_sort,
-    #"Selection Sort": selection_sort,
-    # "Insertion Sort": insertion_sort,
+    "Bubble Sort": bubble_sort,
+    "Selection Sort": selection_sort,
+    "Insertion Sort": insertion_sort,
     "Merge Sort": merge_sort
 }
 
@@ -51,12 +53,14 @@ for case in cases:
                 thread = TimedThread(target=func, args=(numbers.copy(),), name=name)
                 threads.append(thread)
                 thread.start()
+                print(f"Hilo {name} iniciado.")
 
             # Esperar a que todos los hilos terminen
             results: List[AlgorithmResult] = []
             for thread in threads:
                 thread.join()
                 results.append(AlgorithmResult(thread.algorithm_name, thread.execution_time))
+                print(f"Hilo {thread.algorithm_name} terminado.")
 
             # Registrar resultados
             for i, result in enumerate(results):
