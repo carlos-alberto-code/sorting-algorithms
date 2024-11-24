@@ -1,16 +1,16 @@
 === CASO PROMEDIO ===
 
---- Elementos: 1,000 ---
-BubbleSort     0.06 Segundos
-SelectionSort  0.03 Segundos
-InsertionSort  0.02 Segundos
-MergeSort      0.01 Segundos
+--- Elementos: 10,000 ---
+BubbleSort     5.85 Segundos
+SelectionSort  2.28 Segundos
+InsertionSort  2.00 Segundos
+MergeSort      0.04 Segundos
 
 === PEOR DE LOS CASOS ===
 
---- Elementos: 1,000 ---
-BubbleSort     0.07 Segundos
-SelectionSort  0.03 Segundos
-InsertionSort  0.05 Segundos
-MergeSort      0.00 Segundos
+--- Elementos: 10,000 ---
+BubbleSort     6.04 Segundos
+SelectionSort  1.95 Segundos
+InsertionSort  3.40 Segundos
+MergeSort      0.03 Segundos
 

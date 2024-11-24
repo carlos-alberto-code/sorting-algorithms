@@ -7,7 +7,7 @@ with open("log.txt", "w") as log_file:
     log_file.write("")
 
 cases = ["average", "worst"]
-elements = [1_000]
+elements = [10_000]
 algorithms = [
     BubbleSort(), SelectionSort(),
     InsertionSort(), MergeSort()
