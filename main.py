@@ -1,7 +1,7 @@
 import time
 from util.logger import log_results
 from util.numbers_generator import generate_numbers
-from sorting_algorithms.algorithms import bubble_sort, selection_sort, insertion_sort, merge_sort
+from sorting_algorithms.algorithms import *
 
 with open("log.txt", "w") as log_file:
     log_file.write("")

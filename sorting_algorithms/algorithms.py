@@ -1,11 +1,6 @@
 from typing import List
 
 def bubble_sort(numbers: List[int]):
-    """ Algoritmo de oredenación burbuja:
-    Recorre la lista de números y compara cada elemento con el siguiente.
-    Si el elemento actual es mayor que el siguiente, los intercambia.
-    Repite el proceso hasta que no se realice ningún intercambio.
-    """
     n = len(numbers)
     for i in range(n):
         for j in range(0, n-i-1):
@@ -14,11 +9,6 @@ def bubble_sort(numbers: List[int]):
     return numbers
 
 def selection_sort(numbers: List[int]):
-    """ Algoritmo de ordenación por selección:
-    Recorre la lista de números y busca el menor elemento.
-    Intercambia el menor elemento con el primer elemento de la lista.
-    Repite el proceso con el resto de la lista.
-    """
     n = len(numbers)
     for i in range(n):
         min_index = i
@@ -29,11 +19,6 @@ def selection_sort(numbers: List[int]):
     return numbers
 
 def insertion_sort(numbers: List[int]):
-    """ Algoritmo de ordenación por inserción:
-    Recorre la lista de números y compara cada elemento con los anteriores.
-    Si el elemento actual es menor que el anterior, los intercambia.
-    Repite el proceso hasta que el elemento actual sea mayor que el anterior.
-    """
     n = len(numbers)
     for i in range(1, n):
         key = numbers[i]
@@ -45,10 +30,6 @@ def insertion_sort(numbers: List[int]):
     return numbers
 
 def merge_sort(numbers: List[int]):
-    """ Algoritmo de ordenación por mezcla:
-    Divide la lista en mitades hasta que cada sublista tenga un solo elemento.
-    Luego combina las sublistas en orden ascendente.
-    """
     def merge(left: List[int], right: List[int]) -> List[int]:
         result = []
         i = j = 0
