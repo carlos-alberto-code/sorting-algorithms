@@ -17,7 +17,11 @@ algorithms = {
 
 for case in cases:
     for element in elements:
-        numbers = generate_numbers(case, element)
+        try:
+            numbers = generate_numbers(case, element)
+        except ValueError as e:
+            print('Error al generar los números:', e)
+            continue
         for i, (name, func) in enumerate(algorithms.items()):
             start = time.time()
             func(numbers.copy())
