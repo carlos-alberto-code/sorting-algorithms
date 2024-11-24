@@ -2,12 +2,8 @@ from typing import List
 from abc import ABC, abstractmethod
 
 class SortingAlgorithm(ABC):
-    # Esta es una clase abstracta que define un método abstracto llamado sort
     @abstractmethod
     def sort(self, numbers: List[int]) -> List[int]:
-        # Este método debe ser implementado por las clases que hereden de SortingAlgorithm
-        # Con este método se busca mejorar la evolución del código
-        # Así se puede depender de la clase abstracta SortingAlgorithm en lugar de depender de las clases concretas o de funciones como en el caso de la versión 1.
         pass
 
 class BubbleSort(SortingAlgorithm):
