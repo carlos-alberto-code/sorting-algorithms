@@ -1,8 +1,8 @@
 === CASO PROMEDIO ===
 
 --- Elementos: 10,000 ---
-Bubble Sort    9.48 Segundos
-Selection Sort 6.59 Segundos
-Insertion Sort 6.61 Segundos
-Merge Sort     0.32 Segundos
+Bubble Sort    8.89 Segundos
+Selection Sort 5.95 Segundos
+Insertion Sort 5.85 Segundos
+Merge Sort     0.27 Segundos
 
