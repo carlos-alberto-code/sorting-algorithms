@@ -84,8 +84,8 @@ class MergeSort(SortingAlgorithm):
 
 def crear_algoritmos(nums: List[int]) -> List[SortingAlgorithm]:
     return [
-        BubbleSort(nums.copy()),
-        SelectionSort(nums.copy()),
+        # BubbleSort(nums.copy()),
+        # SelectionSort(nums.copy()),
         InsertionSort(nums.copy()),
         MergeSort(nums.copy())
     ]
