@@ -1,0 +1,59 @@
+=== MEJOR DE LOS CASOS ===
+
+--- Elementos: 100 ---
+BubbleSort     0.00 Segundos
+=== MEJOR DE LOS CASOS ===
+
+--- Elementos: 100 ---
+SelectionSort  0.00 Segundos
+InsertionSort  0.00 Segundos
+MergeSort      0.00 Segundos
+
+--- Elementos: 1,000 ---
+BubbleSort     0.02 Segundos
+--- Elementos: 1,000 ---
+SelectionSort  0.02 Segundos
+--- Elementos: 1,000 ---
+InsertionSort  0.00 Segundos
+MergeSort      0.00 Segundos
+
+=== CASO PROMEDIO ===
+
+--- Elementos: 100 ---
+InsertionSort  0.00 Segundos
+=== CASO PROMEDIO ===
+
+--- Elementos: 100 ---
+MergeSort      0.00 Segundos
+
+=== CASO PROMEDIO ===
+
+--- Elementos: 100 ---
+BubbleSort     0.00 Segundos
+--- Elementos: 1,000 ---
+BubbleSort     0.06 Segundos
+--- Elementos: 1,000 ---
+InsertionSort  0.02 Segundos
+--- Elementos: 1,000 ---
+MergeSort      0.00 Segundos
+
+--- Elementos: 1,000 ---
+SelectionSort  0.03 Segundos
+=== PEOR DE LOS CASOS ===
+
+--- Elementos: 100 ---
+SelectionSort  0.00 Segundos
+=== PEOR DE LOS CASOS ===
+
+--- Elementos: 100 ---
+BubbleSort     0.00 Segundos
+
+--- Elementos: 1,000 ---
+InsertionSort  0.05 Segundos
+--- Elementos: 1,000 ---
+SelectionSort  0.04 Segundos
+--- Elementos: 1,000 ---
+BubbleSort     0.09 Segundos
+--- Elementos: 1,000 ---
+MergeSort      0.00 Segundos
+

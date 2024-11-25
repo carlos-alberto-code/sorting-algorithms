@@ -1,6 +1,7 @@
 from typing import List
 from abc import ABC, abstractmethod
 
+
 class SortingAlgorithm(ABC):
     def __init__(self, numbers: List[int]):
         self.numbers = numbers
@@ -75,3 +76,12 @@ class MergeSort(SortingAlgorithm):
         left = MergeSort(self.numbers[:middle]).sort()
         right = MergeSort(self.numbers[middle:]).sort()
         return merge(left, right)
+
+
+def crear_algoritmos(nums: List[int]) -> List[SortingAlgorithm]:
+    return [
+        BubbleSort(nums.copy()),
+        SelectionSort(nums.copy()),
+        InsertionSort(nums.copy()),
+        MergeSort(nums.copy())
+    ]

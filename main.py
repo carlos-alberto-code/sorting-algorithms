@@ -1,44 +1,28 @@
-from typing import List
 import time
+from typing import List
 from threading import Thread
 
-from util.logger import log_results
-from util.numbers_generator import generate_numbers
 from sorting_algorithms.algorithms import *
-from util.thread_runner import AlgorithmResult, run_algorithm  # Importamos todas las clases de algoritmos
+from hilos import ejecutar_algoritmos_en_hilos
+from util.logger import Logger
+from util.numbers_generator import generate_numbers
 
 
-# Limpiar archivo de log
-with open("log.txt", "w") as log_file:
-    log_file.write("")
+logger = Logger()
+logger.limpiar_log()
 
 cases = ["best", "average", "worst"]
-elements = [1_000, 5_000]
-algorithms: List[SortingAlgorithm] = []
+elements = [100, 1_000]
 
 for case in cases:
     for n in elements:
         try:
             nums = generate_numbers(case, n)
-            algorithms = [
-                BubbleSort(nums.copy()),
-                SelectionSort(nums.copy()),
-                InsertionSort(nums.copy()),
-                MergeSort(nums.copy())
-            ]
+            algorithms = crear_algoritmos(nums)
         except ValueError as e:
             print(f'Error al generar los números: {e}')
             continue
 
-        threads: List[Thread] = []
-        results: List[AlgorithmResult] = []
-        for algorithm in algorithms:
-            thread = Thread(target=run_algorithm, args=(algorithm, case, n, results))
-            threads.append(thread)
-            thread.start()
-
-        for thread in threads:
-            thread.join()
-
-        for result in results:
-            log_results(result.case, result.element, result.algorithm, result.time_taken, result == results[-1])
+        print(f'Iniciando caso {case} con {n} elementos\n')
+        ejecutar_algoritmos_en_hilos(algorithms, logger, case, n)
+        print()
