@@ -1,13 +1,9 @@
 from typing import List, Literal
 from dataclasses import dataclass
 
-from util.logger import (
-    Logger,
-    GroupedStrategy,
-    BattleStrategy
-)
 from util.numbers_generator import generate_numbers
 from sorting_algorithms.algorithms import crear_algoritmos
+from util.logger import Logger, GroupedStrategy, BattleStrategy
 from hilos import ejecutar_algoritmos_en_hilos, AlgorithmContext
 
 
