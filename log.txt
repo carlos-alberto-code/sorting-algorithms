@@ -1,16 +1,42 @@
+=== MEJOR DE LOS CASOS ===
+
+--- Elementos: 1,000 ---
+BubbleSort     0.02 Segundos
+SelectionSort  0.02 Segundos
+InsertionSort  0.00 Segundos
+MergeSort      0.00 Segundos
+
+--- Elementos: 5,000 ---
+InsertionSort  0.00 Segundos
+MergeSort      0.02 Segundos
+SelectionSort  1.20 Segundos
+BubbleSort     1.49 Segundos
+
 === CASO PROMEDIO ===
 
---- Elementos: 10,000 ---
-BubbleSort     5.85 Segundos
-SelectionSort  2.28 Segundos
-InsertionSort  2.00 Segundos
+--- Elementos: 1,000 ---
+BubbleSort     0.07 Segundos
+SelectionSort  0.05 Segundos
+InsertionSort  0.02 Segundos
+MergeSort      0.01 Segundos
+
+--- Elementos: 5,000 ---
 MergeSort      0.04 Segundos
+InsertionSort  1.20 Segundos
+SelectionSort  1.54 Segundos
+BubbleSort     2.53 Segundos
 
 === PEOR DE LOS CASOS ===
 
---- Elementos: 10,000 ---
-BubbleSort     6.04 Segundos
-SelectionSort  1.95 Segundos
-InsertionSort  3.40 Segundos
-MergeSort      0.03 Segundos
+--- Elementos: 1,000 ---
+SelectionSort  0.04 Segundos
+BubbleSort     0.09 Segundos
+MergeSort      0.00 Segundos
+InsertionSort  0.04 Segundos
+
+--- Elementos: 5,000 ---
+MergeSort      0.05 Segundos
+SelectionSort  1.57 Segundos
+InsertionSort  2.90 Segundos
+BubbleSort     3.53 Segundos
 

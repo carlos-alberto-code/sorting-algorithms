@@ -2,44 +2,59 @@ from typing import List
 from abc import ABC, abstractmethod
 
 class SortingAlgorithm(ABC):
+    def __init__(self, numbers: List[int]):
+        self.numbers = numbers
+
     @abstractmethod
-    def sort(self, numbers: List[int]) -> List[int]:
+    def sort(self) -> List[int]:
         pass
 
 class BubbleSort(SortingAlgorithm):
-    def sort(self, numbers: List[int]) -> List[int]:
-        n = len(numbers)
+    def __init__(self, numbers: List[int]):
+        super().__init__(numbers)
+
+    def sort(self) -> List[int]:
+        n = len(self.numbers)
         for i in range(n):
             for j in range(0, n-i-1):
-                if numbers[j] > numbers[j+1]:
-                    numbers[j], numbers[j+1] = numbers[j+1], numbers[j]
-        return numbers
+                if self.numbers[j] > self.numbers[j+1]:
+                    self.numbers[j], self.numbers[j+1] = self.numbers[j+1], self.numbers[j]
+        return self.numbers
 
 class SelectionSort(SortingAlgorithm):
-    def sort(self, numbers: List[int]) -> List[int]:
-        n = len(numbers)
+    def __init__(self, numbers: List[int]):
+        super().__init__(numbers)
+
+    def sort(self) -> List[int]:
+        n = len(self.numbers)
         for i in range(n):
             min_index = i
             for j in range(i+1, n):
-                if numbers[j] < numbers[min_index]:
+                if self.numbers[j] < self.numbers[min_index]:
                     min_index = j
-            numbers[i], numbers[min_index] = numbers[min_index], numbers[i]
-        return numbers
+            self.numbers[i], self.numbers[min_index] = self.numbers[min_index], self.numbers[i]
+        return self.numbers
 
 class InsertionSort(SortingAlgorithm):
-    def sort(self, numbers: List[int]) -> List[int]:
-        n = len(numbers)
+    def __init__(self, numbers: List[int]):
+        super().__init__(numbers)
+
+    def sort(self) -> List[int]:
+        n = len(self.numbers)
         for i in range(1, n):
-            key = numbers[i]
+            key = self.numbers[i]
             j = i - 1
-            while j >= 0 and key < numbers[j]:
-                numbers[j + 1] = numbers[j]
+            while j >= 0 and key < self.numbers[j]:
+                self.numbers[j + 1] = self.numbers[j]
                 j -= 1
-            numbers[j + 1] = key
-        return numbers
+            self.numbers[j + 1] = key
+        return self.numbers
 
 class MergeSort(SortingAlgorithm):
-    def sort(self, numbers: List[int]) -> List[int]:
+    def __init__(self, numbers: List[int]):
+        super().__init__(numbers)
+
+    def sort(self) -> List[int]:
         def merge(left: List[int], right: List[int]) -> List[int]:
             result = []
             i = j = 0
@@ -54,9 +69,9 @@ class MergeSort(SortingAlgorithm):
             result.extend(right[j:])
             return result
 
-        if len(numbers) <= 1:
-            return numbers
-        middle = len(numbers) // 2
-        left = self.sort(numbers[:middle])
-        right = self.sort(numbers[middle:])
+        if len(self.numbers) <= 1:
+            return self.numbers
+        middle = len(self.numbers) // 2
+        left = MergeSort(self.numbers[:middle]).sort()
+        right = MergeSort(self.numbers[middle:]).sort()
         return merge(left, right)
