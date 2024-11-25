@@ -23,7 +23,7 @@ class RaceStrategy(ABC):
         pass
 
 
-class GroupedRaceStrategy(RaceStrategy):
+class GroupedStrategy(RaceStrategy):
     def get_race_key(self, result: RaceResult) -> Tuple:
         return (result.case, result.elements)
 
@@ -62,7 +62,7 @@ class GroupedRaceStrategy(RaceStrategy):
         return "\n".join(output)
 
 
-class BattleRoyaleStrategy(RaceStrategy):
+class BattleStrategy(RaceStrategy):
     def get_race_key(self, result: RaceResult) -> Tuple:
         return ('battle_royale',)  # Una única clave para todos los resultados
 
@@ -96,8 +96,8 @@ class BattleRoyaleStrategy(RaceStrategy):
         return "\n".join(output)
 
 
-class EnhancedLogger:
-    def __init__(self, log_file: str = "log.txt", race_strategy: RaceStrategy = GroupedRaceStrategy()):
+class Logger:
+    def __init__(self, log_file: str = "log.txt", race_strategy: RaceStrategy = GroupedStrategy()):
         self.log_file = log_file
         self.race_strategy = race_strategy
         self._lock = Lock()
@@ -105,7 +105,6 @@ class EnhancedLogger:
         self._expected_counts: Dict[Tuple, int] = {}
 
     def set_race_strategy(self, strategy: RaceStrategy):
-        """Permite cambiar la estrategia de carrera en tiempo de ejecución"""
         self._lock.acquire()
         self.race_strategy = strategy
         self._current_races.clear()

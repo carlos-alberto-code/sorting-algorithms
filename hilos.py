@@ -8,7 +8,6 @@ from sorting_algorithms.algorithms import SortingAlgorithm
 
 @dataclass
 class AlgorithmContext:
-    """Mantiene el contexto original del algoritmo"""
     algorithm: SortingAlgorithm
     case: str
     elements: int

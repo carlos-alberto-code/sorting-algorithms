@@ -2,9 +2,9 @@ from typing import List, Literal
 from dataclasses import dataclass
 
 from util.logger import (
-    EnhancedLogger,
-    GroupedRaceStrategy,
-    BattleRoyaleStrategy
+    Logger,
+    GroupedStrategy,
+    BattleStrategy
 )
 from util.numbers_generator import generate_numbers
 from sorting_algorithms.algorithms import crear_algoritmos
@@ -18,12 +18,12 @@ class RaceConfig:
     elements: List[int]
 
 
-def setup_logger(config: RaceConfig) -> EnhancedLogger:
+def setup_logger(config: RaceConfig) -> Logger:
     strategy = (
-        GroupedRaceStrategy() if config.race_type == "grouped"
-        else BattleRoyaleStrategy()
+        GroupedStrategy() if config.race_type == "grouped"
+        else BattleStrategy()
     )
-    logger = EnhancedLogger(race_strategy=strategy)
+    logger = Logger(race_strategy=strategy)
     logger.clear_log()
     return logger
 
