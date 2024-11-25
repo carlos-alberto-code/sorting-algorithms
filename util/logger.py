@@ -1,75 +1,55 @@
-def limpiar_log():
-    with open("log.txt", "w") as log_file:
-        log_file.write("")
-
-def log_results(case: str, element: int, algorithm: str, time_taken: float, is_last_algorithm: bool):
-    # Mapeo de casos a sus títulos en el log
-    case_titles = {
-        "best": "MEJOR DE LOS CASOS",
-        "average": "CASO PROMEDIO",
-        "worst": "PEOR DE LOS CASOS"
-    }
-
-    with open("log.txt", "r", encoding="utf-8") as check_file:
-        content = check_file.read()
-
-    with open("log.txt", "a", encoding="utf-8") as log_file:
-        # Si es un nuevo caso, agregar el encabezado del caso
-        if case_titles[case] not in content:
-            log_file.write(f"=== {case_titles[case]} ===\n\n")
-
-        # Buscar si ya existe una sección para este elemento en el caso actual
-        current_case_content = content.split(f"=== {case_titles[case]} ===")[-1].split("===")[0]
-        section_header = f"--- Elementos: {element:,} ---"
-
-        # Si no encontramos el header para estos elementos en el caso actual, lo agregamos
-        if section_header not in current_case_content:
-            log_file.write(f"{section_header}\n")
-
-        # Registra el resultado del algoritmo
-        log_file.write(f"{algorithm:<15}{time_taken:.2f} Segundos\n")
-
-        # Solo agregar línea en blanco si es el último algoritmo del grupo
-        if is_last_algorithm:
-            log_file.write("\n")
-
+from threading  import Lock
+from datetime   import datetime
+from typing     import Dict, List, Tuple
 
 
 class Logger:
     def __init__(self, log_file: str = "log.txt"):
         self.log_file = log_file
+        self._lock = Lock()
+        self._current_race: Dict[Tuple[str, int], List[Tuple[str, float]]] = {}
 
-    def limpiar_log(self):
-        with open(self.log_file, "w") as log_file:
-            log_file.write("")
+    def clear_log(self):
+        with open(self.log_file, "w", encoding="utf-8") as log_file:
+            log_file.write("=== CARRERA DE ALGORITMOS DE ORDENAMIENTO ===\n")
+            log_file.write(f"Fecha: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n\n")
 
-    def log_results(self, case: str, element: int, algorithm: str, time_taken: float, is_last_algorithm: bool):
-        # Mapeo de casos a sus títulos en el log
-        case_titles = {
-            "best": "MEJOR DE LOS CASOS",
+    def log_finish(self, case: str, elements: int, algorithm_name: str, time_taken: float):
+        key = (case, elements)
+        with self._lock:
+            if key not in self._current_race:
+                self._current_race[key] = []
+            self._current_race[key].append((algorithm_name, time_taken))
+
+            # Si todos los algoritmos han terminado (en este caso, 4)
+            if len(self._current_race[key]) == 4:
+                self._write_race_results(case, elements)
+                del self._current_race[key]
+
+    def _write_race_results(self, case: str, elements: int):
+        case_names = {
+            "best": "MEJOR CASO",
             "average": "CASO PROMEDIO",
-            "worst": "PEOR DE LOS CASOS"
+            "worst": "PEOR CASO"
         }
 
-        with open(self.log_file, "r", encoding="utf-8") as check_file:
-            content = check_file.read()
+        # Ordenar resultados por tiempo
+        results = sorted(self._current_race[(case, elements)], key=lambda x: x[1])
 
-        with open(self.log_file, "a", encoding="utf-8") as log_file:
-            # Si es un nuevo caso, agregar el encabezado del caso
-            if case_titles[case] not in content:
-                log_file.write(f"=== {case_titles[case]} ===\n\n")
+        with open(self.log_file, "a", encoding="utf-8") as f:
+            f.write(f"\nCarrera en {case_names[case]}\n")
+            f.write(f"Elementos: {elements:,}\n")
+            f.write("-" * 50 + "\n")
 
-            # Buscar si ya existe una sección para este elemento en el caso actual
-            current_case_content = content.split(f"=== {case_titles[case]} ===")[-1].split("===")[0]
-            section_header = f"--- Elementos: {element:,} ---"
+            # Header de la tabla
+            f.write(f"{'Posición':<10}{'Algoritmo':<20}{'Tiempo':<15}\n")
+            f.write("-" * 50 + "\n")
 
-            # Si no encontramos el header para estos elementos en el caso actual, lo agregamos
-            if section_header not in current_case_content:
-                log_file.write(f"{section_header}\n")
+            # Resultados
+            for position, (algorithm, time_taken) in enumerate(results, 1):
+                f.write(f"{position:<10}{algorithm:<20}{time_taken:.4f} seg\n")
 
-            # Registra el resultado del algoritmo
-            log_file.write(f"{algorithm:<15}{time_taken:.2f} Segundos\n")
-
-            # Solo agregar línea en blanco si es el último algoritmo del grupo
-            if is_last_algorithm:
-                log_file.write("\n")
+            f.write("=" * 50 + "\n\n")
+            f.write(f"Ganador: {results[0][0]}\n")
+            f.write(f"Diferencia con el último: {results[-1][1] - results[0][1]:.4f} seg\n")
+            f.write("\n" + "=" * 50 + "\n\n")

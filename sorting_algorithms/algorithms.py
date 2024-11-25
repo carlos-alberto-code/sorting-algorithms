@@ -1,5 +1,5 @@
 from typing import List
-from abc import ABC, abstractmethod
+from abc    import ABC, abstractmethod
 
 
 class SortingAlgorithm(ABC):
@@ -9,6 +9,7 @@ class SortingAlgorithm(ABC):
     @abstractmethod
     def sort(self) -> List[int]:
         pass
+
 
 class BubbleSort(SortingAlgorithm):
     def __init__(self, numbers: List[int]):
@@ -21,6 +22,7 @@ class BubbleSort(SortingAlgorithm):
                 if self.numbers[j] > self.numbers[j+1]:
                     self.numbers[j], self.numbers[j+1] = self.numbers[j+1], self.numbers[j]
         return self.numbers
+
 
 class SelectionSort(SortingAlgorithm):
     def __init__(self, numbers: List[int]):
@@ -36,6 +38,7 @@ class SelectionSort(SortingAlgorithm):
             self.numbers[i], self.numbers[min_index] = self.numbers[min_index], self.numbers[i]
         return self.numbers
 
+
 class InsertionSort(SortingAlgorithm):
     def __init__(self, numbers: List[int]):
         super().__init__(numbers)
@@ -50,6 +53,7 @@ class InsertionSort(SortingAlgorithm):
                 j -= 1
             self.numbers[j + 1] = key
         return self.numbers
+
 
 class MergeSort(SortingAlgorithm):
     def __init__(self, numbers: List[int]):
