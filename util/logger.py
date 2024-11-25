@@ -1,14 +1,4 @@
 def log_results(case: str, element: int, algorithm: str, time_taken: float, is_last_algorithm: bool):
-    """
-    Registra los resultados de la ejecución de un algoritmo de ordenamiento.
-
-    Args:
-        case (str): El caso de prueba (best, average, worst)
-        element (int): Número de elementos ordenados
-        algorithm (str): Nombre del algoritmo usado
-        time_taken (float): Tiempo de ejecución en segundos
-        is_last_algorithm: Indica si es el último algoritmo del grupo actual
-    """
     # Mapeo de casos a sus títulos en el log
     case_titles = {
         "best": "MEJOR DE LOS CASOS",

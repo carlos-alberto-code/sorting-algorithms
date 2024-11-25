@@ -1,10 +1,12 @@
 from typing import List
 from abc import ABC, abstractmethod
 
+
 class SortingAlgorithm(ABC):
     @abstractmethod
     def sort(self, numbers: List[int]) -> List[int]:
         pass
+
 
 class BubbleSort(SortingAlgorithm):
     def sort(self, numbers: List[int]) -> List[int]:
@@ -14,6 +16,7 @@ class BubbleSort(SortingAlgorithm):
                 if numbers[j] > numbers[j+1]:
                     numbers[j], numbers[j+1] = numbers[j+1], numbers[j]
         return numbers
+
 
 class SelectionSort(SortingAlgorithm):
     def sort(self, numbers: List[int]) -> List[int]:
@@ -26,6 +29,7 @@ class SelectionSort(SortingAlgorithm):
             numbers[i], numbers[min_index] = numbers[min_index], numbers[i]
         return numbers
 
+
 class InsertionSort(SortingAlgorithm):
     def sort(self, numbers: List[int]) -> List[int]:
         n = len(numbers)
@@ -37,6 +41,7 @@ class InsertionSort(SortingAlgorithm):
                 j -= 1
             numbers[j + 1] = key
         return numbers
+
 
 class MergeSort(SortingAlgorithm):
     def sort(self, numbers: List[int]) -> List[int]:
