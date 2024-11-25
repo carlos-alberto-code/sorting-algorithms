@@ -35,20 +35,16 @@ def setup_logger(config: RaceConfig) -> Logger:
 
 def prepare_algorithms(config: RaceConfig, logger: Logger) -> List[AlgorithmContext]:
     all_contexts = []
-
     for n in config.elements:
         current_contexts = []
-
         for case in config.cases:
             try:
                 nums = generate_numbers(case, n)
                 algorithms = crear_algoritmos(nums)
-
                 contexts = [
                     AlgorithmContext(algo, case, n)
                     for algo in algorithms
                 ]
-
                 if config.race_type == "grouped":
                     # Ejecución inmediata para carreras agrupadas
                     logger.set_expected_algorithms(case, n, len(contexts))
@@ -56,7 +52,6 @@ def prepare_algorithms(config: RaceConfig, logger: Logger) -> List[AlgorithmCont
                 else:
                     # Acumular contextos para battle_royale o tournament
                     current_contexts.extend(contexts)
-
             except ValueError as e:
                 print(f'Error al generar los números para {case} con {n} elementos: {e}')
                 continue
@@ -73,14 +68,12 @@ def prepare_algorithms(config: RaceConfig, logger: Logger) -> List[AlgorithmCont
 
 
 if __name__ == "__main__":
-    # Configuración de ejemplo para un tipo de carrera
     config = RaceConfig(
         race_type="tournament",
         cases=["best", "average", "worst"],
         elements=[1_000, 10_000]
     )
 
-    # Ejecutar la configuración
     print(f"\nIniciando carrera tipo: {config.race_type}")
     print(f"Elementos: {config.elements}")
     print(f"Casos: {config.cases}\n")
@@ -88,7 +81,6 @@ if __name__ == "__main__":
     logger = setup_logger(config)
     all_contexts = prepare_algorithms(config, logger)
 
-    # Manejar battle_royale que requiere ejecución conjunta
     if config.race_type == "battle_royale" and all_contexts:
         total_algorithms = len(all_contexts)
         print(f'Iniciando Battle Royale con {total_algorithms} algoritmos...\n')
