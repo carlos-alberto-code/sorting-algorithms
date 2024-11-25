@@ -15,9 +15,8 @@ class Logger:
             log_file.write("=== CARRERA DE ALGORITMOS DE ORDENAMIENTO ===\n")
             log_file.write(f"Fecha: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n\n")
 
-    def set_expected_algorithms(self, case: str, elements: int, count: int):
-        """Establece cuántos algoritmos se esperan para una carrera específica"""
-        self._expected_algorithms[(case, elements)] = count
+    def set_expected_algorithms(self, case: str, elements: int, num_algorithms: int):
+        self._expected_algorithms[(case, elements)] = num_algorithms
 
     def log_finish(self, case: str, elements: int, algorithm_name: str, time_taken: float):
         key = (case, elements)

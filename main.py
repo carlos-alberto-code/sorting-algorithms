@@ -17,7 +17,6 @@ for case in cases:
         try:
             nums = generate_numbers(case, n)
             algorithms = crear_algoritmos(nums)
-            # Informar al logger cuántos algoritmos esperar
             logger.set_expected_algorithms(case, n, len(algorithms))
         except ValueError as e:
             print(f'Error al generar los números: {e}')
