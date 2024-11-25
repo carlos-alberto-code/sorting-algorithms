@@ -73,37 +73,24 @@ def prepare_algorithms(config: RaceConfig, logger: Logger) -> List[AlgorithmCont
 
 
 if __name__ == "__main__":
-    # Configuración de ejemplo para diferentes tipos de carreras
-    configs = [
-        RaceConfig(
-            race_type="grouped",
-            cases=["best", "average", "worst"],
-            elements=[1_000]
-        ),
-        RaceConfig(
-            race_type="battle_royale",
-            cases=["best", "average", "worst"],
-            elements=[1_000, 5_000]
-        ),
-        RaceConfig(
-            race_type="tournament",
-            cases=["best", "average", "worst"],
-            elements=[1_000]
-        )
-    ]
+    # Configuración de ejemplo para un tipo de carrera
+    config = RaceConfig(
+        race_type="tournament",
+        cases=["best", "average", "worst"],
+        elements=[1_000, 10_000]
+    )
 
-    # Ejecutar cada configuración
-    for config in configs:
-        print(f"\nIniciando carrera tipo: {config.race_type}")
-        print(f"Elementos: {config.elements}")
-        print(f"Casos: {config.cases}\n")
+    # Ejecutar la configuración
+    print(f"\nIniciando carrera tipo: {config.race_type}")
+    print(f"Elementos: {config.elements}")
+    print(f"Casos: {config.cases}\n")
 
-        logger = setup_logger(config)
-        all_contexts = prepare_algorithms(config, logger)
+    logger = setup_logger(config)
+    all_contexts = prepare_algorithms(config, logger)
 
-        # Manejar battle_royale que requiere ejecución conjunta
-        if config.race_type == "battle_royale" and all_contexts:
-            total_algorithms = len(all_contexts)
-            print(f'Iniciando Battle Royale con {total_algorithms} algoritmos...\n')
-            logger.set_expected_algorithms('battle_royale', 0, total_algorithms)
-            ejecutar_algoritmos_en_hilos(all_contexts, logger)
+    # Manejar battle_royale que requiere ejecución conjunta
+    if config.race_type == "battle_royale" and all_contexts:
+        total_algorithms = len(all_contexts)
+        print(f'Iniciando Battle Royale con {total_algorithms} algoritmos...\n')
+        logger.set_expected_algorithms('battle_royale', 0, total_algorithms)
+        ejecutar_algoritmos_en_hilos(all_contexts, logger)
