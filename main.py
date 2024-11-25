@@ -1,26 +1,82 @@
-from threading import Thread
+from typing import List, Literal
+from dataclasses import dataclass
 
-from util.logger                    import Logger
-from util.numbers_generator         import generate_numbers
-from sorting_algorithms.algorithms  import crear_algoritmos
-from hilos                          import ejecutar_algoritmos_en_hilos
+from util.logger import (
+    EnhancedLogger,
+    GroupedRaceStrategy,
+    BattleRoyaleStrategy
+)
+from util.numbers_generator import generate_numbers
+from sorting_algorithms.algorithms import crear_algoritmos
+from hilos import ejecutar_algoritmos_en_hilos, AlgorithmContext
 
 
-logger = Logger()
-logger.clear_log()
+@dataclass
+class RaceConfig:
+    race_type: Literal["grouped", "battle_royale"]
+    cases: List[str]
+    elements: List[int]
 
-cases = ["best", "average"]
-elements = [1_000, 10_000]
 
-for case in cases:
-    for n in elements:
-        try:
-            nums = generate_numbers(case, n)
-            algorithms = crear_algoritmos(nums)
-            logger.set_expected_algorithms(case, n, len(algorithms))
-        except ValueError as e:
-            print(f'Error al generar los números: {e}')
-            continue
+def setup_logger(config: RaceConfig) -> EnhancedLogger:
+    strategy = (
+        GroupedRaceStrategy() if config.race_type == "grouped"
+        else BattleRoyaleStrategy()
+    )
+    logger = EnhancedLogger(race_strategy=strategy)
+    logger.clear_log()
+    return logger
 
-        print(f'Iniciando caso {case} con {n} elementos\n')
-        ejecutar_algoritmos_en_hilos(algorithms, logger, case, n)
+
+def prepare_algorithms(config: RaceConfig) -> List[AlgorithmContext]:
+    """Prepara los algoritmos con su contexto original"""
+    all_contexts = []
+
+    for case in config.cases:
+        for n in config.elements:
+            try:
+                nums = generate_numbers(case, n)
+                algorithms = crear_algoritmos(nums)
+
+                if config.race_type == "grouped":
+                    # Para carreras agrupadas
+                    contexts = [
+                        AlgorithmContext(algo, case, n)
+                        for algo in algorithms
+                    ]
+                    logger.set_expected_algorithms(case, n, len(contexts))
+                    ejecutar_algoritmos_en_hilos(contexts, logger)
+                else:
+                    # Para battle royale, acumulamos los contextos
+                    contexts = [
+                        AlgorithmContext(algo, case, n)
+                        for algo in algorithms
+                    ]
+                    all_contexts.extend(contexts)
+            except ValueError as e:
+                print(f'Error al generar los números para {case} con {n} elementos: {e}')
+                continue
+
+    return all_contexts
+
+
+if __name__ == "__main__":
+    # Configuración de la carrera
+    config = RaceConfig(
+        race_type="grouped",  # o "grouped" para el comportamiento original
+        cases=["best", "average", "worst"],
+        elements=[1_000, 5_000]
+    )
+
+    # Configurar el logger según el tipo de carrera
+    logger = setup_logger(config)
+
+    # Preparar y ejecutar los algoritmos
+    all_contexts = prepare_algorithms(config)
+
+    # Si es battle royale, ejecutar todos los algoritmos juntos
+    if config.race_type == "battle_royale" and all_contexts:
+        total_algorithms = len(all_contexts)
+        print(f'\nIniciando Battle Royale con {total_algorithms} algoritmos...\n')
+        logger.set_expected_algorithms('battle_royale', 0, total_algorithms)
+        ejecutar_algoritmos_en_hilos(all_contexts, logger)

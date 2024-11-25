@@ -1,28 +1,42 @@
 import time
-from typing     import List
-from threading  import Thread
+from typing import List
+from threading import Thread
+from dataclasses import dataclass
+
+from sorting_algorithms.algorithms import SortingAlgorithm
+
+
+@dataclass
+class AlgorithmContext:
+    """Mantiene el contexto original del algoritmo"""
+    algorithm: SortingAlgorithm
+    case: str
+    elements: int
 
 
 class ThreadAlgorithm(Thread):
-    def __init__(self, algorithm, logger, case: str, element: int):
-        super().__init__(name=algorithm.__class__.__name__)
-        self.algorithm = algorithm
+    def __init__(self, context: AlgorithmContext, logger):
+        super().__init__(name=context.algorithm.__class__.__name__)
+        self.context = context
         self.logger = logger
-        self.case = case
-        self.element = element
 
     def run(self):
         start = time.time()
-        self.algorithm.sort()
+        self.context.algorithm.sort()
         end = time.time()
         time_taken = end - start
-        self.logger.log_finish(self.case, self.element, self.algorithm.__class__.__name__, time_taken)
+        self.logger.log_finish(
+            self.context.case,
+            self.context.elements,
+            self.context.algorithm.__class__.__name__,
+            time_taken
+        )
 
 
-def ejecutar_algoritmos_en_hilos(algorithms: List, logger, case: str, element: int):
+def ejecutar_algoritmos_en_hilos(algorithm_contexts: List[AlgorithmContext], logger):
     threads = []
-    for algorithm in algorithms:
-        thread = ThreadAlgorithm(algorithm, logger, case, element)
+    for context in algorithm_contexts:
+        thread = ThreadAlgorithm(context, logger)
         threads.append(thread)
         thread.start()
 

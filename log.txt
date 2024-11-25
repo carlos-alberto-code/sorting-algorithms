@@ -1,5 +1,5 @@
 === CARRERA DE ALGORITMOS DE ORDENAMIENTO ===
-Fecha: 2024-11-24 22:50:07
+Fecha: 2024-11-24 23:23:52
 
 
 Carrera en MEJOR CASO
@@ -8,56 +8,92 @@ Elementos: 1,000
 Posición  Algoritmo           Tiempo         
 --------------------------------------------------
 1         InsertionSort       0.0000 seg
-2         MergeSort           0.0050 seg
+2         MergeSort           0.0041 seg
+3         SelectionSort       0.0451 seg
+4         BubbleSort          0.0485 seg
 ==================================================
 
 Ganador: InsertionSort
-Diferencia con el último: 0.0050 seg
+Diferencia con el último: 0.0485 seg
 
 ==================================================
 
-
 Carrera en MEJOR CASO
-Elementos: 10,000
+Elementos: 5,000
 --------------------------------------------------
 Posición  Algoritmo           Tiempo         
 --------------------------------------------------
-1         InsertionSort       0.0010 seg
-2         MergeSort           0.0462 seg
+1         InsertionSort       0.0000 seg
+2         MergeSort           0.0448 seg
+3         SelectionSort       1.7901 seg
+4         BubbleSort          1.9960 seg
 ==================================================
 
 Ganador: InsertionSort
-Diferencia con el último: 0.0452 seg
+Diferencia con el último: 1.9960 seg
 
 ==================================================
-
 
 Carrera en CASO PROMEDIO
 Elementos: 1,000
 --------------------------------------------------
 Posición  Algoritmo           Tiempo         
 --------------------------------------------------
-1         MergeSort           0.0061 seg
-2         InsertionSort       0.0245 seg
+1         MergeSort           0.0037 seg
+2         InsertionSort       0.0766 seg
+3         SelectionSort       0.1150 seg
+4         BubbleSort          0.1266 seg
 ==================================================
 
 Ganador: MergeSort
-Diferencia con el último: 0.0184 seg
+Diferencia con el último: 0.1230 seg
 
 ==================================================
 
-
 Carrera en CASO PROMEDIO
-Elementos: 10,000
+Elementos: 5,000
 --------------------------------------------------
 Posición  Algoritmo           Tiempo         
 --------------------------------------------------
-1         MergeSort           0.1054 seg
-2         InsertionSort       2.4128 seg
+1         MergeSort           0.0631 seg
+2         InsertionSort       2.3408 seg
+3         SelectionSort       2.5606 seg
+4         BubbleSort          3.6430 seg
 ==================================================
 
 Ganador: MergeSort
-Diferencia con el último: 2.3074 seg
+Diferencia con el último: 3.5799 seg
 
 ==================================================
 
+Carrera en PEOR CASO
+Elementos: 1,000
+--------------------------------------------------
+Posición  Algoritmo           Tiempo         
+--------------------------------------------------
+1         MergeSort           0.0043 seg
+2         SelectionSort       0.0417 seg
+3         InsertionSort       0.0912 seg
+4         BubbleSort          0.1967 seg
+==================================================
+
+Ganador: MergeSort
+Diferencia con el último: 0.1923 seg
+
+==================================================
+
+Carrera en PEOR CASO
+Elementos: 5,000
+--------------------------------------------------
+Posición  Algoritmo           Tiempo         
+--------------------------------------------------
+1         MergeSort           0.0990 seg
+2         SelectionSort       2.3734 seg
+3         InsertionSort       3.1481 seg
+4         BubbleSort          4.0201 seg
+==================================================
+
+Ganador: MergeSort
+Diferencia con el último: 3.9211 seg
+
+==================================================
