@@ -1,8 +1,8 @@
-from threading import Lock
-from datetime import datetime
-from typing import Dict, List, Tuple
-from abc import ABC, abstractmethod
-from dataclasses import dataclass
+from threading      import Lock
+from datetime       import datetime
+from dataclasses    import dataclass
+from typing         import Dict, List, Tuple
+from abc            import ABC, abstractmethod
 
 
 @dataclass
@@ -92,6 +92,85 @@ class BattleStrategy(RaceStrategy):
         output.append(f"Con {sorted_results[0].elements} elementos en caso {sorted_results[0].case}")
         output.append(f"Tiempo: {sorted_results[0].time_taken:.4f} seg")
         output.append("\n" + "=" * 50 + "\n")
+
+        return "\n".join(output)
+
+
+class TournamentStrategy(RaceStrategy):
+    def get_race_key(self, result: RaceResult) -> Tuple:
+        # Agrupamos por rondas del torneo
+        return ('tournament', result.elements)
+
+    def format_results(self, results: List[RaceResult]) -> str:
+        if not results:
+            return ""
+
+        # Organizamos los resultados por casos para simular rondas
+        cases = {'best': [], 'average': [], 'worst': []}
+        for result in results:
+            cases[result.case].append(result)
+
+        output = []
+        output.append("\nTORNEO DE ALGORITMOS")
+        output.append(f"Elementos: {results[0].elements:,}")
+        output.append("=" * 50)
+
+        # Procesamos cada ronda
+        for case, round_results in cases.items():
+            if not round_results:
+                continue
+
+            round_name = {
+                'best': 'RONDA 1 - Mejor Caso',
+                'average': 'RONDA 2 - Caso Promedio',
+                'worst': 'RONDA 3 - Peor Caso'
+            }[case]
+
+            output.append(f"\n{round_name}")
+            output.append("-" * 50)
+
+            # Ordenamos por tiempo para esta ronda
+            sorted_round = sorted(round_results, key=lambda x: x.time_taken)
+
+            # Mostramos resultados de la ronda
+            for position, result in enumerate(sorted_round, 1):
+                output.append(
+                    f"{position}. {result.algorithm_name:<15} "
+                    f"Tiempo: {result.time_taken:.4f} seg"
+                )
+
+            # Calculamos puntos para esta ronda
+            points = {
+                result.algorithm_name: len(sorted_round) - position
+                for position, result in enumerate(sorted_round)
+            }
+
+            output.append("\nPuntos de la ronda:")
+            for algo, pts in sorted(points.items(), key=lambda x: x[1], reverse=True):
+                output.append(f"{algo:<15} {pts} pts")
+
+        # Calculamos ganador general
+        total_points = {}
+        for round_results in cases.values():
+            sorted_round = sorted(round_results, key=lambda x: x.time_taken)
+            for position, result in enumerate(sorted_round):
+                if result.algorithm_name not in total_points:
+                    total_points[result.algorithm_name] = 0
+                total_points[result.algorithm_name] += len(sorted_round) - position
+
+        output.append("\n" + "=" * 50)
+        output.append("\nRESULTADOS FINALES DEL TORNEO")
+        output.append("-" * 50)
+
+        # Mostramos tabla final de posiciones
+        sorted_final = sorted(total_points.items(), key=lambda x: x[1], reverse=True)
+        for position, (algo, points) in enumerate(sorted_final, 1):
+            output.append(f"{position}. {algo:<15} {points} pts")
+
+        output.append("\n" + "=" * 50)
+        output.append(f"CAMPEÓN DEL TORNEO: {sorted_final[0][0]}")
+        output.append(f"Puntos totales: {sorted_final[0][1]}")
+        output.append("=" * 50 + "\n")
 
         return "\n".join(output)
 
