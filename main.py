@@ -63,7 +63,7 @@ def prepare_algorithms(config: RaceConfig) -> List[AlgorithmContext]:
 if __name__ == "__main__":
     # Configuración de la carrera
     config = RaceConfig(
-        race_type="grouped",  # o "grouped" para el comportamiento original
+        race_type="battle_royale",  # o "grouped" para el comportamiento original
         cases=["best", "average", "worst"],
         elements=[1_000, 5_000]
     )
