@@ -8,11 +8,16 @@ class Logger:
         self.log_file = log_file
         self._lock = Lock()
         self._current_race: Dict[Tuple[str, int], List[Tuple[str, float]]] = {}
+        self._expected_algorithms: Dict[Tuple[str, int], int] = {}  # Nuevo diccionario
 
     def clear_log(self):
         with open(self.log_file, "w", encoding="utf-8") as log_file:
             log_file.write("=== CARRERA DE ALGORITMOS DE ORDENAMIENTO ===\n")
             log_file.write(f"Fecha: {datetime.now().strftime('%Y-%m-%d %H:%M:%S')}\n\n")
+
+    def set_expected_algorithms(self, case: str, elements: int, count: int):
+        """Establece cuántos algoritmos se esperan para una carrera específica"""
+        self._expected_algorithms[(case, elements)] = count
 
     def log_finish(self, case: str, elements: int, algorithm_name: str, time_taken: float):
         key = (case, elements)
@@ -21,10 +26,11 @@ class Logger:
                 self._current_race[key] = []
             self._current_race[key].append((algorithm_name, time_taken))
 
-            # Si todos los algoritmos han terminado (en este caso, 4)
-            if len(self._current_race[key]) == 4:
+            expected_count = self._expected_algorithms.get(key)
+            if expected_count and len(self._current_race[key]) == expected_count:
                 self._write_race_results(case, elements)
                 del self._current_race[key]
+                del self._expected_algorithms[key]
 
     def _write_race_results(self, case: str, elements: int):
         case_names = {
@@ -33,7 +39,6 @@ class Logger:
             "worst": "PEOR CASO"
         }
 
-        # Ordenar resultados por tiempo
         results = sorted(self._current_race[(case, elements)], key=lambda x: x[1])
 
         with open(self.log_file, "a", encoding="utf-8") as f:
@@ -41,11 +46,9 @@ class Logger:
             f.write(f"Elementos: {elements:,}\n")
             f.write("-" * 50 + "\n")
 
-            # Header de la tabla
             f.write(f"{'Posición':<10}{'Algoritmo':<20}{'Tiempo':<15}\n")
             f.write("-" * 50 + "\n")
 
-            # Resultados
             for position, (algorithm, time_taken) in enumerate(results, 1):
                 f.write(f"{position:<10}{algorithm:<20}{time_taken:.4f} seg\n")
 

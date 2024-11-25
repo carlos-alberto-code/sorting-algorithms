@@ -1,20 +1,63 @@
 === CARRERA DE ALGORITMOS DE ORDENAMIENTO ===
-Fecha: 2024-11-24 22:07:36
+Fecha: 2024-11-24 22:50:07
 
 
-Carrera en PEOR CASO
+Carrera en MEJOR CASO
+Elementos: 1,000
+--------------------------------------------------
+Posición  Algoritmo           Tiempo         
+--------------------------------------------------
+1         InsertionSort       0.0000 seg
+2         MergeSort           0.0050 seg
+==================================================
+
+Ganador: InsertionSort
+Diferencia con el último: 0.0050 seg
+
+==================================================
+
+
+Carrera en MEJOR CASO
 Elementos: 10,000
 --------------------------------------------------
 Posición  Algoritmo           Tiempo         
 --------------------------------------------------
-1         MergeSort           0.0713 seg
-2         SelectionSort       7.6391 seg
-3         InsertionSort       11.3496 seg
-4         BubbleSort          13.9080 seg
+1         InsertionSort       0.0010 seg
+2         MergeSort           0.0462 seg
+==================================================
+
+Ganador: InsertionSort
+Diferencia con el último: 0.0452 seg
+
+==================================================
+
+
+Carrera en CASO PROMEDIO
+Elementos: 1,000
+--------------------------------------------------
+Posición  Algoritmo           Tiempo         
+--------------------------------------------------
+1         MergeSort           0.0061 seg
+2         InsertionSort       0.0245 seg
 ==================================================
 
 Ganador: MergeSort
-Diferencia con el último: 13.8367 seg
+Diferencia con el último: 0.0184 seg
+
+==================================================
+
+
+Carrera en CASO PROMEDIO
+Elementos: 10,000
+--------------------------------------------------
+Posición  Algoritmo           Tiempo         
+--------------------------------------------------
+1         MergeSort           0.1054 seg
+2         InsertionSort       2.4128 seg
+==================================================
+
+Ganador: MergeSort
+Diferencia con el último: 2.3074 seg
 
 ==================================================
 
